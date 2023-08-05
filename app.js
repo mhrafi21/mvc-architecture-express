@@ -1,7 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const usersRoute = require("./routes/users.route")
 app.use(express.urlencoded({extended:true}));
+
+app.use(usersRoute);
+
+
 const htmlForm =  `
 
 <form>
@@ -10,7 +15,6 @@ const htmlForm =  `
 
 <button type = "submit" >Save User</button>
 </form>
-
 `
 const user = [
     {
@@ -23,22 +27,4 @@ const user = [
     }
 ]
 
-app.get("/users", (req,res)=>{
-    res.send(htmlForm);
-})
-
-app.post("/users",()=>{
-    const name = req.body.name;
-    const age = Number(req.body.age);
-    const user ={
-        name,
-        age
-    }
-    users.push(user)
-});
-
-
-app.get("*", (req,res,next)=>{
-   res.send("404!")
-});
 module.exports = app;
